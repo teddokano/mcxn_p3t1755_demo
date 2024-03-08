@@ -12,10 +12,6 @@ extern "C" {
 #include	"fsl_debug_console.h"
 }
 
-#define	R01LIB_TARGET_FRDM_MCXN947
-
-
-
 #include	"i3c.h"
 #include	"io.h"
 #include	"mcu.h"

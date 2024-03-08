@@ -23,7 +23,7 @@ extern "C" {
 
 void init_mcu( void )
 {
-#ifdef	R01LIB_TARGET_FRDM_MCXN947
+#ifdef	CPU_MCXN947VDF
 	CLOCK_SetClkDiv(kCLOCK_DivFlexcom4Clk, 1);
 	CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
 

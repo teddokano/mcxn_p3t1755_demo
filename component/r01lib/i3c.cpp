@@ -30,7 +30,7 @@ extern "C" {
 #define	IBI_PAYLOAD_BUFFER_SIZE		10
 
 
-#ifdef	R01LIB_TARGET_FRDM_MCXN947
+#ifdef	CPU_MCXN947VDF
 #define EXAMPLE_MASTER            	I3C1
 #define I3C_MASTER_CLOCK_FREQUENCY	CLOCK_GetI3cClkFreq(1)
 #else
