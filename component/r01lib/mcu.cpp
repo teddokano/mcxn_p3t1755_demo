@@ -31,6 +31,8 @@ void init_mcu( void )
 	CLOCK_SetClkDiv(kCLOCK_DivI3c1FClk, 6U);
 	CLOCK_AttachClk(kPLL0_to_I3C1FCLK);
 
+	SYSCON->CLOCK_CTRL |= SYSCON_CLOCK_CTRL_FRO1MHZ_ENA_MASK;	//	UTICK
+
 	CLOCK_EnableClock( kCLOCK_Gpio0 );
 	CLOCK_EnableClock( kCLOCK_Gpio1 );
 	CLOCK_EnableClock( kCLOCK_Gpio3 );
