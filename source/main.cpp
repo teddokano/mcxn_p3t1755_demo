@@ -23,9 +23,6 @@ DigitalOut	trig( D2    );	//	IBI detection trigger. Pin D0~D2, D4~D13, D18, D19 
 
 void	DAA_set_dynamic_ddress_from_static_ddress( uint8_t static_address, uint8_t dynamic_address );
 
-#undef P3T1755_ADDR_I3C
-#define	P3T1755_ADDR_I3C	P3T1755_ADDR_I2C
-
 int main(void)
 {
 	init_pin_control();
@@ -33,8 +30,8 @@ int main(void)
 
 	PRINTF("\r\nP3T1755 (Temperature sensor) I3C operation sample: getting temperature data and IBI\r\n");
 
-//	DAA_set_dynamic_ddress_from_static_ddress( P3T1755_ADDR_I2C, P3T1755_ADDR_I3C );
-//	p3t1755.address_overwrite( P3T1755_ADDR_I3C );
+	DAA_set_dynamic_ddress_from_static_ddress( P3T1755_ADDR_I2C, P3T1755_ADDR_I3C );
+	p3t1755.address_overwrite( P3T1755_ADDR_I3C );
 	
 	float ref_temp	= p3t1755.temp();
 	float low		= ref_temp + 1.0;

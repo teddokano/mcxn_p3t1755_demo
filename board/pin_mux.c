@@ -343,6 +343,9 @@ BOARD_InitDEBUG_UARTPins:
   - {pin_num: A6, peripheral: GPIO0, signal: 'GPIO, 25', pin_signal: PIO0_25/FC1_P1/CT0_MAT1/ADC0_B17}
   - {pin_num: P1, peripheral: GPIO4, signal: 'GPIO, 0', pin_signal: PIO4_0/WUU0_IN18/TRIG_IN6/FC2_P0/CT_INP16/PLU_IN0/SINC0_MCLK3}
   - {pin_num: P2, peripheral: GPIO4, signal: 'GPIO, 1', pin_signal: PIO4_1/TRIG_IN7/FC2_P1/CT_INP17/PLU_IN1}
+  - {pin_num: D3, peripheral: I3C1, signal: PUR, pin_signal: PIO1_11/WUU0_IN11/TRACE_DATA3/FC4_P3/CT2_MAT1/SCT0_IN3/FLEXIO0_D19/PLU_IN1/ENET0_RX_CLK/I3C1_PUR/CAN0_RXD/TSI0_CH20/ADC1_A11}
+  - {pin_num: F6, peripheral: I3C1, signal: SDA, pin_signal: PIO1_16/WUU0_IN14/FC5_P0/FC3_P4/CT_INP12/SCT0_OUT6/FLEXIO0_D24/PLU_OUT4/ENET0_RXD2/I3C1_SDA/ADC1_A16}
+  - {pin_num: F4, peripheral: I3C1, signal: SCL, pin_signal: PIO1_17/FC5_P1/FC3_P5/CT_INP13/SCT0_OUT7/FLEXIO0_D25/PLU_OUT5/ENET0_RXD3/I3C1_SCL/ADC1_A17}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -486,6 +489,36 @@ void BOARD_InitDEBUG_UARTPins(void)
     PORT_SetPinMux(BOARD_INITDEBUG_UARTPINS_ARD_D7_PORT, BOARD_INITDEBUG_UARTPINS_ARD_D7_PIN, kPORT_MuxAlt0);
 
     PORT0->PCR[31] = ((PORT0->PCR[31] &
+                       /* Mask bits to zero which are setting */
+                       (~(PORT_PCR_IBE_MASK)))
+
+                      /* Input Buffer Enable: Enables. */
+                      | PORT_PCR_IBE(PCR_IBE_ibe1));
+
+    /* PORT1_11 (pin D3) is configured as I3C1_PUR */
+    PORT_SetPinMux(PORT1, 11U, kPORT_MuxAlt10);
+
+    PORT1->PCR[11] = ((PORT1->PCR[11] &
+                       /* Mask bits to zero which are setting */
+                       (~(PORT_PCR_IBE_MASK)))
+
+                      /* Input Buffer Enable: Enables. */
+                      | PORT_PCR_IBE(PCR_IBE_ibe1));
+
+    /* PORT1_16 (pin F6) is configured as I3C1_SDA */
+    PORT_SetPinMux(PORT1, 16U, kPORT_MuxAlt10);
+
+    PORT1->PCR[16] = ((PORT1->PCR[16] &
+                       /* Mask bits to zero which are setting */
+                       (~(PORT_PCR_IBE_MASK)))
+
+                      /* Input Buffer Enable: Enables. */
+                      | PORT_PCR_IBE(PCR_IBE_ibe1));
+
+    /* PORT1_17 (pin F4) is configured as I3C1_SCL */
+    PORT_SetPinMux(PORT1, 17U, kPORT_MuxAlt10);
+
+    PORT1->PCR[17] = ((PORT1->PCR[17] &
                        /* Mask bits to zero which are setting */
                        (~(PORT_PCR_IBE_MASK)))
 
