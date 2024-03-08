@@ -10,7 +10,7 @@
  */
 
 
-#define	MCXN947
+#include "r01lib.h"
 
 extern "C" {
 #include	<string.h>
@@ -30,7 +30,7 @@ extern "C" {
 #define	IBI_PAYLOAD_BUFFER_SIZE		10
 
 
-#ifdef MCXN947
+#ifdef	R01LIB_TARGET_FRDM_MCXN947
 #define EXAMPLE_MASTER            	I3C1
 #define I3C_MASTER_CLOCK_FREQUENCY	CLOCK_GetI3cClkFreq(1)
 #else

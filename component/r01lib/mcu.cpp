@@ -5,8 +5,6 @@
  *
  */
 
-#define	MCXN947
-
 extern "C" {
 #include "peripherals.h"
 #include "fsl_common.h"
@@ -25,7 +23,7 @@ extern "C" {
 
 void init_mcu( void )
 {
-#ifdef	MCXN947
+#ifdef	R01LIB_TARGET_FRDM_MCXN947
 	CLOCK_SetClkDiv(kCLOCK_DivFlexcom4Clk, 1);
 	CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
 
