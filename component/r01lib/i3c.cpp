@@ -35,7 +35,7 @@ extern "C" {
 #define I3C_MASTER_CLOCK_FREQUENCY	CLOCK_GetI3cClkFreq(1)
 #else
 #define EXAMPLE_MASTER				I3C0
-#define I3C_MASTER_CLOCK_FREQUENCY	CLOCK_GetI3sClkFreq()
+#define I3C_MASTER_CLOCK_FREQUENCY	CLOCK_GetI3CFClkFreq()
 #endif
 
 
