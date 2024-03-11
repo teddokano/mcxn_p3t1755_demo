@@ -5,9 +5,8 @@ extern "C" {
 #include "fsl_debug_console.h"
 }
 
-I3C_Device::I3C_Device( I3C &i3c, uint8_t address ) : _i3c( i3c ), _addr( address )
-{
-	
+I3C_Device::I3C_Device( I2C &i2c, uint8_t address ) : _i2c( i2c ), _addr( address )
+{	
 }
 
 I3C_Device::~I3C_Device(){}
@@ -19,12 +18,12 @@ void I3C_Device::address_overwrite( uint8_t address )
 
 void I3C_Device::ccc_set( uint8_t ccc, uint8_t data )
 {
-	_i3c.ccc_set( ccc, _addr, data );
+//	_i2c.ccc_set( ccc, _addr, data );
 }
 
 uint8_t* I3C_Device::ccc_get( uint8_t ccc, uint8_t *dp, uint8_t length )
 {
-	_i3c.ccc_get( ccc, _addr, dp, length );
+//	_i2c.ccc_get( ccc, _addr, dp, length );
 	
 	return dp;
 }
@@ -32,7 +31,7 @@ uint8_t* I3C_Device::ccc_get( uint8_t ccc, uint8_t *dp, uint8_t length )
 
 
 
-P3T1755::P3T1755( I3C &i3c, uint8_t address ) : I3C_Device( i3c, address ) {}
+P3T1755::P3T1755( I2C &i2c, uint8_t address ) : I3C_Device( i2c, address ) {}
 P3T1755::~P3T1755(){}
 
 float P3T1755::temp( void )
@@ -42,13 +41,13 @@ float P3T1755::temp( void )
 
 void P3T1755::conf( uint8_t config )
 {
-	_i3c.reg_write( _addr, Conf, &config, sizeof( config ) );
+	_i2c.reg_write( _addr, Conf, &config, sizeof( config ) );
 }
 
 uint8_t P3T1755::conf( void )
 {
 	uint8_t	c;
-	_i3c.reg_read( _addr, P3T1755::Conf, &c, sizeof( c ) );
+	_i2c.reg_read( _addr, P3T1755::Conf, &c, sizeof( c ) );
 	
 	return c;
 }
@@ -76,13 +75,13 @@ float P3T1755::low( void )
 void P3T1755::write( uint8_t reg, float v )
 {
 	uint16_t	tmp	= swap_bytes( celsius2short( v ) );
-	_i3c.reg_write( _addr, reg, (uint8_t *)&tmp, sizeof( tmp ) );
+	_i2c.reg_write( _addr, reg, (uint8_t *)&tmp, sizeof( tmp ) );
 }
 
 int16_t P3T1755::read( uint8_t reg )
 {
 	uint16_t	tmp;
-	_i3c.reg_read( _addr, reg, (uint8_t *)&tmp, sizeof( tmp ) );
+	_i2c.reg_read( _addr, reg, (uint8_t *)&tmp, sizeof( tmp ) );
 	
 	return tmp;
 }

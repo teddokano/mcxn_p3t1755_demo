@@ -341,11 +341,11 @@ BOARD_InitDEBUG_UARTPins:
   - {pin_num: B6, peripheral: GPIO0, signal: 'GPIO, 24', pin_signal: PIO0_24/FC1_P0/CT0_MAT0/ADC0_B16}
   - {pin_num: F10, peripheral: GPIO0, signal: 'GPIO, 26', pin_signal: PIO0_26/FC1_P2/CT0_MAT2/ADC0_B18}
   - {pin_num: A6, peripheral: GPIO0, signal: 'GPIO, 25', pin_signal: PIO0_25/FC1_P1/CT0_MAT1/ADC0_B17}
-  - {pin_num: P1, peripheral: GPIO4, signal: 'GPIO, 0', pin_signal: PIO4_0/WUU0_IN18/TRIG_IN6/FC2_P0/CT_INP16/PLU_IN0/SINC0_MCLK3}
-  - {pin_num: P2, peripheral: GPIO4, signal: 'GPIO, 1', pin_signal: PIO4_1/TRIG_IN7/FC2_P1/CT_INP17/PLU_IN1}
   - {pin_num: D3, peripheral: I3C1, signal: PUR, pin_signal: PIO1_11/WUU0_IN11/TRACE_DATA3/FC4_P3/CT2_MAT1/SCT0_IN3/FLEXIO0_D19/PLU_IN1/ENET0_RX_CLK/I3C1_PUR/CAN0_RXD/TSI0_CH20/ADC1_A11}
   - {pin_num: F6, peripheral: I3C1, signal: SDA, pin_signal: PIO1_16/WUU0_IN14/FC5_P0/FC3_P4/CT_INP12/SCT0_OUT6/FLEXIO0_D24/PLU_OUT4/ENET0_RXD2/I3C1_SDA/ADC1_A16}
   - {pin_num: F4, peripheral: I3C1, signal: SCL, pin_signal: PIO1_17/FC5_P1/FC3_P5/CT_INP13/SCT0_OUT7/FLEXIO0_D25/PLU_OUT5/ENET0_RXD3/I3C1_SCL/ADC1_A17}
+  - {pin_num: P1, peripheral: LP_FLEXCOMM2, signal: LPFLEXCOMM_P0, pin_signal: PIO4_0/WUU0_IN18/TRIG_IN6/FC2_P0/CT_INP16/PLU_IN0/SINC0_MCLK3}
+  - {pin_num: P2, peripheral: LP_FLEXCOMM2, signal: LPFLEXCOMM_P1, pin_signal: PIO4_1/TRIG_IN7/FC2_P1/CT_INP17/PLU_IN1}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -601,8 +601,8 @@ void BOARD_InitDEBUG_UARTPins(void)
     /* PORT1_9 (pin B1) is configured as FC4_P1 */
     PORT_SetPinConfig(BOARD_INITDEBUG_UARTPINS_DEBUG_UART_TX_PORT, BOARD_INITDEBUG_UARTPINS_DEBUG_UART_TX_PIN, &DEBUG_UART_TX);
 
-    /* PORT4_0 (pin P1) is configured as PIO4_0 */
-    PORT_SetPinMux(BOARD_INITDEBUG_UARTPINS_ARD_D18_PORT, BOARD_INITDEBUG_UARTPINS_ARD_D18_PIN, kPORT_MuxAlt0);
+    /* PORT4_0 (pin P1) is configured as FC2_P0 */
+    PORT_SetPinMux(BOARD_INITDEBUG_UARTPINS_ARD_D18_PORT, BOARD_INITDEBUG_UARTPINS_ARD_D18_PIN, kPORT_MuxAlt2);
 
     PORT4->PCR[0] = ((PORT4->PCR[0] &
                       /* Mask bits to zero which are setting */
@@ -611,8 +611,8 @@ void BOARD_InitDEBUG_UARTPins(void)
                      /* Input Buffer Enable: Enables. */
                      | PORT_PCR_IBE(PCR_IBE_ibe1));
 
-    /* PORT4_1 (pin P2) is configured as PIO4_1 */
-    PORT_SetPinMux(BOARD_INITDEBUG_UARTPINS_ARD_D19_PORT, BOARD_INITDEBUG_UARTPINS_ARD_D19_PIN, kPORT_MuxAlt0);
+    /* PORT4_1 (pin P2) is configured as FC2_P1 */
+    PORT_SetPinMux(BOARD_INITDEBUG_UARTPINS_ARD_D19_PORT, BOARD_INITDEBUG_UARTPINS_ARD_D19_PIN, kPORT_MuxAlt2);
 
     PORT4->PCR[1] = ((PORT4->PCR[1] &
                       /* Mask bits to zero which are setting */

@@ -26,7 +26,7 @@ extern "C" {
 
 #include	"i3c.h"
 
-#define	REG_RW_BUFFER_SIZE			10
+//#define	REG_RW_BUFFER_SIZE			10
 #define	IBI_PAYLOAD_BUFFER_SIZE		10
 
 
@@ -52,6 +52,7 @@ volatile status_t		g_completionStatus;
 i3c_func_ptr			g_ibi_callback	= NULL;
 
 I3C::I3C( uint32_t i2c_freq, uint32_t i3c_od_freq, uint32_t i3c_pp_freq )
+	: I2C( i2c_freq )
 {
 	i3c_master_config_t	masterConfig;
 
@@ -73,62 +74,14 @@ I3C::I3C( uint32_t i2c_freq, uint32_t i3c_od_freq, uint32_t i3c_pp_freq )
 
 I3C::~I3C() {}
 
-
-status_t I3C::reg_write( uint8_t targ, uint8_t reg, const uint8_t *dp, int length )
-{
-	uint8_t	bp[ REG_RW_BUFFER_SIZE ];
-	
-	bp[ 0 ]	= reg;
-	memcpy( (uint8_t *)bp + 1, (uint8_t *)dp, length );
-
-	last_status	= write( targ, bp, length + 1 );
-	
-	return last_status;
-}
-
-status_t I3C::reg_write( uint8_t targ, uint8_t reg, uint8_t data )
-{
-	return write( targ, &data, sizeof( data ) );
-}
-
-status_t I3C::reg_read( uint8_t targ, uint8_t reg, uint8_t *dp, int length )
-{
-	last_status	= write( targ, &reg, sizeof( reg ), NO_STOP );
-	
-	if ( kStatus_Success != last_status )
-		return last_status;
-	
-	return read( targ, dp, length );
-}
-
-uint8_t I3C::reg_read( uint8_t targ, uint8_t reg )
-{
-	last_status	= write( targ, reg, NO_STOP );
-	return read( targ );
-}
-
 status_t I3C::write( uint8_t targ, const uint8_t *dp, int length, bool stop )
 {
 	return xfer( kI3C_Write, kI3C_TypeI3CSdr, targ, (uint8_t *)dp, length, stop );
 }
 
-status_t I3C::write( uint8_t targ, uint8_t data, bool stop )
-{
-	return write( targ, &data, sizeof( data ), stop );
-}
-
 status_t I3C::read( uint8_t targ, uint8_t *dp, int length, bool stop )
 {
 	return xfer( kI3C_Read, kI3C_TypeI3CSdr, targ, dp, length, stop );
-}
-
-uint8_t I3C::read( uint8_t targ, bool stop )
-{
-	uint8_t	data;
-
-	last_status	= read( targ, &data, sizeof( data ), stop );
-
-	return data;
 }
 
 status_t I3C::xfer( i3c_direction_t dir, i3c_bus_type_t type, uint8_t targ, uint8_t *dp, int length, bool stop )

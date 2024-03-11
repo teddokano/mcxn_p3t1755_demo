@@ -19,7 +19,7 @@
 class I3C_Device
 {
 public:
-	I3C_Device( I3C &i3c, uint8_t address );
+	I3C_Device( I2C &i2c, uint8_t address );
 	~I3C_Device();
 	
 	void				address_overwrite( uint8_t address );
@@ -28,7 +28,7 @@ public:
 	virtual uint8_t*	ccc_get( uint8_t ccc, uint8_t *dp, uint8_t length );
 
 protected:
-	I3C&	_i3c;
+	I2C&	_i2c;
 	uint8_t	_addr;	
 };
 
@@ -42,7 +42,7 @@ public:
 		T_HIGH,
 	};
 
-	P3T1755( I3C &i3c, uint8_t address = P3T1755_ADDR_I2C );
+	P3T1755( I2C &i2c, uint8_t address = P3T1755_ADDR_I2C );
 	~P3T1755();
 	
 	float		temp( void );
