@@ -76,6 +76,8 @@ void led_pin_control( int v )
 		led_all( PIN_LED_OFF );
 	else
 		*target_ptr	= PIN_LED_ON;
+	
+//	PRINTF( "### %d\r\n", v );
 }
 
 void ibi_trigger_output( void )

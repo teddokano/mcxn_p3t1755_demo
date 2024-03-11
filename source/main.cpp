@@ -40,19 +40,7 @@ void cb( void )
 
 int main(void)
 {
-	while ( true )
-	{
-		uint8_t	reg	= 0x00;
-		int16_t	data;
-		i2c.write( 0x4C, &reg, sizeof( reg ), NO_STOP );
-		i2c.read( 0x4C, (uint8_t *)&data, sizeof( data ) );
-
-		PRINTF( "temp = %8.4f˚C\r\n", (float)(((data & 0xFF) << 8) | ((data >> 8) & 0xFF)) / 256.0 );
-
-		wait( 0.1 );
-	}
-
-	#if 0
+#if 0
 	Ticker	t;
 	t.attach( cb, 1 );
 
@@ -64,6 +52,8 @@ int main(void)
 			PRINTF( "###\r\n" );
 		}
 	}
+#endif
+#if 0
 
 	while ( true )
 	{

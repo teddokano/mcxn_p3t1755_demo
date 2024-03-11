@@ -33,7 +33,6 @@ extern "C" {
 
 
 
-
 I2C::I2C( uint32_t frequency )
 {
 	lpi2c_master_config_t	masterConfig;
@@ -151,4 +150,16 @@ uint8_t I2C::read( uint8_t targ, bool stop )
 	last_status	= read( targ, &data, sizeof( data ), stop );
 
 	return data;
+}
+
+
+status_t I2C::ccc_set( uint8_t ccc, uint8_t addr, uint8_t data )
+{
+	return kStatus_Success;
+}
+
+status_t I2C::ccc_get( uint8_t ccc, uint8_t addr, uint8_t *dp, uint8_t length )
+{
+	memset( dp, 0, length );
+	return kStatus_Success;
 }

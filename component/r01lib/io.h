@@ -83,6 +83,13 @@
 	#define A3_GPIO_PIN			BOARD_INITDEBUG_UARTPINS_ARD_A3_GPIO_PIN
 	#define A4_GPIO_PIN			BOARD_INITDEBUG_UARTPINS_ARD_A4_GPIO_PIN
 	#define A5_GPIO_PIN			BOARD_INITDEBUG_UARTPINS_ARD_A5_GPIO_PIN
+
+	#define	RED		D9
+	#define	GREEN	D10
+	#define	BLUE	D6
+
+
+
 #else // CPU_MCXN947VDF
 
 	#define RED_GPIO			BOARD_LED_RED_GPIO
@@ -147,6 +154,11 @@
 	#define A4_GPIO_PIN			BOARD_INITPINS_ARD_A4_GPIO_PIN
 	#define A5_GPIO_PIN			BOARD_INITPINS_ARD_A5_GPIO_PIN
 
+	#define	RED		D5
+	#define	GREEN	D6
+	#define	BLUE	D3
+
+
 #endif // CPU_MCXN947VDF
 /*
  *	Following pins are disabled since the pins are assigned to other function
@@ -158,10 +170,6 @@
 
 enum { 	D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13, D18, D19,
 		A0, A1, A2, A3, A4, A5 };
-
-#define	RED		D5
-#define	GREEN	D6
-#define	BLUE	D3
 
 #define	PIN_LED_OFF	true
 #define	PIN_LED_ON	false

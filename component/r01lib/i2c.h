@@ -42,6 +42,9 @@ public:
 	virtual status_t	read( uint8_t address, uint8_t *dp, int length, bool stop = STOP );
 	virtual uint8_t		read( uint8_t targ, bool stop = STOP );
 
+	virtual status_t	ccc_set( uint8_t ccc, uint8_t addr, uint8_t data );
+	virtual status_t	ccc_get( uint8_t ccc, uint8_t addr, uint8_t *dp, uint8_t length );
+
 	status_t	last_status;
 
 private:

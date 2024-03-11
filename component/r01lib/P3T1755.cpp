@@ -18,12 +18,12 @@ void I3C_Device::address_overwrite( uint8_t address )
 
 void I3C_Device::ccc_set( uint8_t ccc, uint8_t data )
 {
-//	_i2c.ccc_set( ccc, _addr, data );
+	_i2c.ccc_set( ccc, _addr, data );
 }
 
 uint8_t* I3C_Device::ccc_get( uint8_t ccc, uint8_t *dp, uint8_t length )
 {
-//	_i2c.ccc_get( ccc, _addr, dp, length );
+	_i2c.ccc_get( ccc, _addr, dp, length );
 	
 	return dp;
 }
