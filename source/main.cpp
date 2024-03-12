@@ -6,7 +6,7 @@
  *
  */
 
-//#define		ENABLE_I3C
+#define		ENABLE_I3C
 
 #include	"r01lib.h"
 
