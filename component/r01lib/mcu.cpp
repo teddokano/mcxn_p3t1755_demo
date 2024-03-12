@@ -61,9 +61,10 @@ void init_mcu( void )
 	CLOCK_SetClockDiv(kCLOCK_DivLPI2C0, 1u);
 	CLOCK_AttachClk(kFRO12M_to_LPI2C0);
 
+	CLOCK_EnableClock( kCLOCK_GateGPIO0 );
 	CLOCK_EnableClock( kCLOCK_GateGPIO1 );
-	CLOCK_EnableClock( kCLOCK_GateGPIO3 );
 	CLOCK_EnableClock( kCLOCK_GateGPIO2 );
+	CLOCK_EnableClock( kCLOCK_GateGPIO3 );
 
 	RESET_PeripheralReset( kUTICK0_RST_SHIFT_RSTn );
 	

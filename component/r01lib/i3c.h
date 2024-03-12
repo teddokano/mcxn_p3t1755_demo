@@ -13,13 +13,14 @@
 #define R01LIB_I3C_H
 
 
-#include "config.h"
 #include "i2c.h"
 
 #include "fsl_i3c.h"
 
 #define I3C_BROADCAST_ADDR		0x7E
 #define	PID_LENGTH				6
+
+//#define	LOWER_SCL_FREQ
 
 #ifdef	LOWER_SCL_FREQ
 #define I3C_OD_FREQ		1500000UL

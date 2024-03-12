@@ -15,20 +15,11 @@
 extern "C" {
 #include	<string.h>
 #include	"fsl_i3c.h"
-
-
-
-#include "fsl_debug_console.h"
-
-
-
 }
 
 #include	"i3c.h"
 
-//#define	REG_RW_BUFFER_SIZE			10
 #define	IBI_PAYLOAD_BUFFER_SIZE		10
-
 
 #ifdef	CPU_MCXN947VDF
 #define EXAMPLE_MASTER            	I3C1
@@ -37,7 +28,6 @@ extern "C" {
 #define EXAMPLE_MASTER				I3C0
 #define I3C_MASTER_CLOCK_FREQUENCY	CLOCK_GetI3CFClkFreq()
 #endif
-
 
 uint8_t					g_ibiBuff[ IBI_PAYLOAD_BUFFER_SIZE ];
 static uint8_t			g_ibiUserBuff[ IBI_PAYLOAD_BUFFER_SIZE ];
@@ -68,8 +58,6 @@ I3C::I3C( uint32_t i2c_freq, uint32_t i3c_od_freq, uint32_t i3c_pp_freq )
 
 	/* Create I3C handle. */
 	I3C_MasterTransferCreateHandle( EXAMPLE_MASTER, &g_i3c_m_handle, &masterCallback, NULL );
-	
-	PRINTF("=== I3C instance had been made ===\r\n");
 }
 
 I3C::~I3C() {}

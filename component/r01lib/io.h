@@ -8,8 +8,6 @@
 #ifndef R01LIB_IO_H
 #define R01LIB_IO_H
 
-#include "config.h"
-
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
@@ -103,11 +101,16 @@
 	#define GREEN_GPIO_PIN		BOARD_LED_GREEN_GPIO
 	#define BLUE_GPIO_PIN		BOARD_LED_BLUE_GPIO
 
-	#ifdef	USE_D18_AND_D19_FOR_I3C
+	#ifndef	BOARD_INITPINS_ARD_D18_GPIO
 	#define BOARD_INITPINS_ARD_D18_GPIO	DISABLED_GPIO
 	#define BOARD_INITPINS_ARD_D19_GPIO	DISABLED_GPIO
 	#define BOARD_INITPINS_ARD_D18_GPIO_PIN	DISABLED_PIN
 	#define BOARD_INITPINS_ARD_D19_GPIO_PIN	DISABLED_PIN
+	#endif
+
+	#ifndef	BOARD_INITPINS_ARD_D3_GPIO
+	#define	BOARD_INITPINS_ARD_D3_GPIO		DISABLED_GPIO
+	#define	BOARD_INITPINS_ARD_D3_GPIO_PIN	DISABLED_PIN
 	#endif
 
 	#define D0_GPIO				BOARD_INITPINS_ARD_D0_GPIO
@@ -166,13 +169,6 @@
 
 
 #endif // CPU_MCXN947VDF
-/*
- *	Following pins are disabled since the pins are assigned to other function
- */
-#undef	BOARD_INITPINS_ARD_D3_GPIO
-#undef	BOARD_INITPINS_ARD_D3_GPIO_PIN
-#define	BOARD_INITPINS_ARD_D3_GPIO		DISABLED_GPIO
-#define	BOARD_INITPINS_ARD_D3_GPIO_PIN	DISABLED_PIN
 
 enum { 	D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13, D18, D19,
 		A0, A1, A2, A3, A4, A5, SW2, SW3 };

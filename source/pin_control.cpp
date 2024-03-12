@@ -6,14 +6,14 @@
  */
 
 #include	"r01lib.h"
-
-#include	"config.h"
 #include	"pin_control.h"
 
 extern "C" {
 #include	"fsl_utick.h"
 //#include	"pwm.h"
 }
+
+#define	TRIGGER_PORALITY	0
 
 extern	DigitalOut	r;
 extern	DigitalOut	g;

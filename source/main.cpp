@@ -7,13 +7,17 @@
  */
 
 #include	"r01lib.h"
-
-#include	"config.h"
-#include	"pin_control.h"
-
 r01lib_start;	/* *** place this word before making instance of r01lib classes *** */
 
+#include	"pin_control.h"
+
+//#define	LOWER_I3C_FREQUENCY
+#ifdef	LOWER_I3C_FREQUENCY
+I3C		i3c( 400000, 1500000,  4000000 );
+#else
 I3C			i3c;
+#endif
+
 I2C			i2c;
 
 #define	ENABLE_I3C
