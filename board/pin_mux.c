@@ -346,6 +346,7 @@ BOARD_InitDEBUG_UARTPins:
   - {pin_num: F4, peripheral: I3C1, signal: SCL, pin_signal: PIO1_17/FC5_P1/FC3_P5/CT_INP13/SCT0_OUT7/FLEXIO0_D25/PLU_OUT5/ENET0_RXD3/I3C1_SCL/ADC1_A17}
   - {pin_num: P1, peripheral: LP_FLEXCOMM2, signal: LPFLEXCOMM_P0, pin_signal: PIO4_0/WUU0_IN18/TRIG_IN6/FC2_P0/CT_INP16/PLU_IN0/SINC0_MCLK3}
   - {pin_num: P2, peripheral: LP_FLEXCOMM2, signal: LPFLEXCOMM_P1, pin_signal: PIO4_1/TRIG_IN7/FC2_P1/CT_INP17/PLU_IN1}
+  - {pin_num: C14, peripheral: GPIO0, signal: 'GPIO, 6', pin_signal: PIO0_6/ISPMODE_N/FC0_P2/FC1_P6/CT_INP2/HSCMP2_OUT/PDM0_DATA1/CLKOUT/TSI0_CH10}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -494,6 +495,16 @@ void BOARD_InitDEBUG_UARTPins(void)
 
                       /* Input Buffer Enable: Enables. */
                       | PORT_PCR_IBE(PCR_IBE_ibe1));
+
+    /* PORT0_6 (pin C14) is configured as PIO0_6 */
+    PORT_SetPinMux(BOARD_INITDEBUG_UARTPINS_SW3_PORT, BOARD_INITDEBUG_UARTPINS_SW3_PIN, kPORT_MuxAlt0);
+
+    PORT0->PCR[6] = ((PORT0->PCR[6] &
+                      /* Mask bits to zero which are setting */
+                      (~(PORT_PCR_IBE_MASK)))
+
+                     /* Input Buffer Enable: Enables. */
+                     | PORT_PCR_IBE(PCR_IBE_ibe1));
 
     /* PORT1_11 (pin D3) is configured as I3C1_PUR */
     PORT_SetPinMux(PORT1, 11U, kPORT_MuxAlt10);
