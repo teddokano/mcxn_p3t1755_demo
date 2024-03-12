@@ -40,6 +40,25 @@ void cb( void )
 
 int main(void)
 {
+#if 1
+	InterruptIn	in( SW2 );
+	in.rise( cb );
+
+	while ( true )
+	{
+		if ( g_Flag )
+		{
+			g_Flag	= false;
+			PRINTF( "!!!\r\n", in & 0x01 );
+		}
+		
+		PRINTF( "%d\r\n", in & 0x01 );
+		wait( 0.1 );
+	}
+
+#endif
+	
+	
 #if 0
 	Ticker	t;
 	t.attach( cb, 1 );

@@ -37,7 +37,8 @@ static gpio_pin pins[]	= {
 	{ A2_GPIO,  A2_GPIO_PIN  },
 	{ A3_GPIO,  A3_GPIO_PIN  },
 	{ A4_GPIO,  A4_GPIO_PIN  },
-	{ A5_GPIO,  A5_GPIO_PIN  }
+	{ A5_GPIO,  A5_GPIO_PIN  },
+	{ SW2_GPIO,  SW2_GPIO_PIN  }
 };
 
 extern "C" {
@@ -52,7 +53,11 @@ DigitalInOut::DigitalInOut( uint8_t pin_num, bool direction, bool value )
 		return;
 	
 	gpio_pin_config_t led_config = { (gpio_pin_direction_t)direction, value };
-	GPIO_PinInit( pins[ _pn ].base, pins[ _pn ].pin, &led_config );
+	
+	gpio_n		= pins[ _pn ].base;
+	gpio_pin	= pins[ _pn ].pin;
+	
+	GPIO_PinInit( gpio_n, gpio_pin, &led_config );
 }
 
 DigitalInOut::~DigitalInOut(){}
@@ -63,7 +68,7 @@ void DigitalInOut::value( bool value )
 		return;
 
 	if ( kGPIO_DigitalOutput == _dir )
-		GPIO_PinWrite( pins[ _pn ].base, pins[ _pn ].pin, value );
+		GPIO_PinWrite( gpio_n, gpio_pin, value );
 	
 	_value	= value;
 }
@@ -74,7 +79,7 @@ bool DigitalInOut::value( void )
 		return 0;
 
 	if ( kGPIO_DigitalInput == _dir )
-		return GPIO_PinRead( pins[ _pn ].base, pins[ _pn ].pin );
+		return GPIO_PinRead( gpio_n, gpio_pin );
 	else
 		return _value;
 }

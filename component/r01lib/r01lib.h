@@ -16,6 +16,7 @@ extern "C" {
 #include	"i2c.h"
 #include	"io.h"
 #include	"Ticker.h"
+#include	"InterruptIn.h"
 #include	"mcu.h"
 #include	"P3T1755.h"
 
