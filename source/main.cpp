@@ -42,7 +42,7 @@ int main(void)
 {
 #if 1
 	InterruptIn	in( SW2 );
-	in.rise( cb );
+	in.fall( cb );
 
 	while ( true )
 	{

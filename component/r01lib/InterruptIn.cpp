@@ -1,5 +1,4 @@
 /*
- * Copyright 2017 NXP
  * Copyright 2024 Tedd OKANO
  * All rights reserved.
  *
