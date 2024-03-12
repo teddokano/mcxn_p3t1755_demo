@@ -14,7 +14,7 @@ extern "C" {
 
 #include	"io.h"
 
-
+typedef	void (*func_ptr)( void );
 
 class InterruptIn : public DigitalIn
 {	
@@ -22,11 +22,9 @@ public:
 	InterruptIn( uint8_t pin_num );
 	~InterruptIn();
 	
-	void	rise( utick_callback_t callback );
-	void	fall( utick_callback_t callback );
-	void	regist( utick_callback_t callback, gpio_interrupt_config_t type );
-	
-	utick_callback_t cb;
+	void	rise( func_ptr callback );
+	void	fall( func_ptr callback );
+	void	regist( func_ptr callback, gpio_interrupt_config_t type );
 };
 
 #endif // R01LIB_INTERRUPTIN_H

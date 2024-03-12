@@ -57,17 +57,17 @@ InterruptIn::InterruptIn( uint8_t pin_num )
 
 InterruptIn::~InterruptIn() {}
 
-void InterruptIn::rise( utick_callback_t callback )
+void InterruptIn::rise( func_ptr callback )
 {
 	regist( callback, kGPIO_InterruptRisingEdge );
 }
 
-void InterruptIn::fall( utick_callback_t callback )
+void InterruptIn::fall( func_ptr callback )
 {
-	regist( callback, kGPIO_InterruptFallingEdge );
+	regist( *callback, kGPIO_InterruptFallingEdge );
 }
 
-void InterruptIn::regist( utick_callback_t callback, gpio_interrupt_config_t type )
+void InterruptIn::regist( func_ptr callback, gpio_interrupt_config_t type )
 {
 	/* Init input switch GPIO. */
 	#if (defined(FSL_FEATURE_PORT_HAS_NO_INTERRUPT) && FSL_FEATURE_PORT_HAS_NO_INTERRUPT)
