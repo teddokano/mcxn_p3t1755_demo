@@ -12,7 +12,7 @@ r01lib_start;	/* *** place this word before making instance of r01lib classes **
 #include	"pin_control.h"
 
 #define	ENABLE_I3C
-//#define	LOWER_I3C_FREQUENCY
+#define	LOWER_I3C_FREQUENCY
 //#define	TARGET_ON_ARDUINO_SHIELD
 
 #ifdef	TARGET_ON_ARDUINO_SHIELD

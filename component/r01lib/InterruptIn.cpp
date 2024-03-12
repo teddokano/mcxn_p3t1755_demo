@@ -78,11 +78,8 @@ void InterruptIn::regist( func_ptr callback, gpio_interrupt_config_t type )
 
 	for ( int i = 0; i < N_GPIO; i++ )
 	{
-		PRINTF( "IRQ ? %d\r\n", i );
 		if ( gpio_ptr[i] == gpio_n )
 		{
-			PRINTF( "IRQ = %d\r\n", i );
-			
 			cb_table[ i ][ gpio_pin ]	= callback;
 			EnableIRQ( irqs[ i ] );
 			break;
