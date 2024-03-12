@@ -11,21 +11,28 @@ r01lib_start;	/* *** place this word before making instance of r01lib classes **
 
 #include	"pin_control.h"
 
-//#define	LOWER_I3C_FREQUENCY
-#ifdef	LOWER_I3C_FREQUENCY
-I3C		i3c( 400000, 1500000,  4000000 );
-#else
-I3C			i3c;
-#endif
-
-I2C			i2c;
-
 #define	ENABLE_I3C
-#ifdef	ENABLE_I3C
-P3T1755		p3t1755( i3c );
-#else
-P3T1755		p3t1755( i2c, 0x4C );
+//#define	LOWER_I3C_FREQUENCY
+//#define	TARGET_ON_ARDUINO_SHIELD
+
+#ifdef	TARGET_ON_ARDUINO_SHIELD
+	#undef	P3T1755_ADDR_I2C
+	#define	P3T1755_ADDR_I2C	0x4C
 #endif
+
+#ifdef	ENABLE_I3C
+	#ifdef	LOWER_I3C_FREQUENCY
+		I3C		i3c( 400000, 1500000,  4000000 );
+	#else
+		I3C			i3c;
+	#endif
+
+	P3T1755		p3t1755( i3c, P3T1755_ADDR_I2C );
+#else
+	I2C			i2c;
+	P3T1755		p3t1755( i2c, P3T1755_ADDR_I2C );
+#endif
+
 
 DigitalOut	r(    RED   );	//	== D5 pin
 DigitalOut	g(    GREEN );	//	== D6 pin

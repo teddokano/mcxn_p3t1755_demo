@@ -7,12 +7,7 @@
 
 #include	"i3c.h"
 
-#ifdef	USE_D18_AND_D19_FOR_I3C
-#define P3T1755_ADDR_I2C			0x4CU
-#else
 #define P3T1755_ADDR_I2C			0x48U
-#endif
-
 #define P3T1755_ADDR_I3C			0x08U
 #define P3T1755_CONFIG_VALUE		0x2A
 
