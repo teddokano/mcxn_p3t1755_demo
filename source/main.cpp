@@ -6,8 +6,6 @@
  *
  */
 
-#define		ENABLE_I3C
-
 #include	"r01lib.h"
 
 #include	"config.h"
@@ -18,6 +16,7 @@ r01lib_start;	/* *** place this word before making instance of r01lib classes **
 I3C			i3c;
 I2C			i2c;
 
+#define	ENABLE_I3C
 #ifdef	ENABLE_I3C
 P3T1755		p3t1755( i3c );
 #else
@@ -31,62 +30,8 @@ DigitalOut	trig( D2    );	//	IBI detection trigger. Pin D0~D2, D4~D13, D18, D19 
 
 void	DAA_set_dynamic_ddress_from_static_ddress( uint8_t static_address, uint8_t dynamic_address );
 
-volatile int	g_Flag	= false;
-
-void cb( void )
-{
-	g_Flag	= true;
-}
-
 int main(void)
 {
-#if 1
-	InterruptIn	in( SW2 );
-	in.fall( cb );
-
-	while ( true )
-	{
-		if ( g_Flag )
-		{
-			g_Flag	= false;
-			PRINTF( "!!!\r\n", in & 0x01 );
-		}
-		
-		PRINTF( "%d\r\n", in & 0x01 );
-		wait( 0.1 );
-	}
-
-#endif
-	
-	
-#if 0
-	Ticker	t;
-	t.attach( cb, 1 );
-
-	while ( true )
-	{
-		if ( g_Flag )
-		{
-			g_Flag	= false;
-			PRINTF( "###\r\n" );
-		}
-	}
-#endif
-#if 0
-
-	while ( true )
-	{
-		uint8_t	reg	= 0x00;
-		int16_t	data;
-		i2c.write( 0x4C, &reg, sizeof( reg ), NO_STOP );
-		i2c.read( 0x4C, (uint8_t *)&data, sizeof( data ) );
-
-		PRINTF( "temp = %8.4f˚C\r\n", (float)(((data & 0xFF) << 8) | ((data >> 8) & 0xFF)) / 256.0 );
-
-		wait( 0.1 );
-	}
-#endif
-
 	init_pin_control();
 	i3c.set_IBI_callback( ibi_trigger_output );
 
