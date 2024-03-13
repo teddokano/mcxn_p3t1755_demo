@@ -31,7 +31,6 @@ void init_pin_control( void )
 	
 	Ticker	t;
 	t.attach( led_control_callback, 0.01 );
-//	UTICK_SetTick( UTICK0, kUTICK_Repeat, 10000 - 1, led_control_callback );
 }
 
 

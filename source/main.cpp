@@ -10,6 +10,7 @@
 r01lib_start;	/* *** place this word before making instance of r01lib classes *** */
 
 #include	"pin_control.h"
+#include	<time.h>
 
 #define	ENABLE_I3C
 #define	LOWER_I3C_FREQUENCY
@@ -22,7 +23,7 @@ r01lib_start;	/* *** place this word before making instance of r01lib classes **
 
 #ifdef	ENABLE_I3C
 	#ifdef	LOWER_I3C_FREQUENCY
-		I3C		i3c( 400000, 1500000,  4000000 );
+		I3C		i3c( 400000, 1500000,  4000000 );	//	I2C_FREQ, I3C_OD_FREQ, I3C_PP_FREQ
 	#else
 		I3C			i3c;
 	#endif
@@ -32,6 +33,8 @@ r01lib_start;	/* *** place this word before making instance of r01lib classes **
 	I2C			i2c;
 	P3T1755		p3t1755( i2c, P3T1755_ADDR_I2C );
 #endif
+
+#define	WAIT_SEC	0.9855
 
 
 DigitalOut	r(    RED   );	//	== D5 pin
@@ -76,13 +79,13 @@ int main(void)
 	while ( true )
 	{
 		if ( (ibi_addr	= i3c.check_IBI()) )
-			PRINTF("*** IBI : Got IBI from target_address: 7’h%02X (0x%02X)\r\n", ibi_addr, ibi_addr << 1 );
+			PRINTF("Read at %7.2f sec: *** IBI : Got IBI from target_address: 7’h%02X (0x%02X)\r\n", (float)clock() / CLOCKS_PER_SEC, ibi_addr, ibi_addr << 1 );
 
 		temp	= p3t1755;
-		PRINTF( "Temperature: %8.4f˚C\r\n", temp );
+		PRINTF( "Read at %7.2f sec: Temperature: %8.4f˚C\r\n", (float)clock() / CLOCKS_PER_SEC, temp );
 
 		led_set_color( temp, ref_temp );
-		wait( 1 );
+		wait( WAIT_SEC );
 	}
 }
 
