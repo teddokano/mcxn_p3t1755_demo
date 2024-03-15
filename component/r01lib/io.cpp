@@ -46,18 +46,19 @@ extern "C" {
 }
 
 
-DigitalInOut::DigitalInOut( uint8_t pin_num, bool direction, bool value )
-	: _pn( pin_num ), _dir( direction ), _value( value )
+DigitalInOut::DigitalInOut( uint8_t pin_num, bool direction, bool v )
+	: _pn( pin_num ), _dir( direction ), _value( v )
 {
 	if ( NULL == pins[ _pn ].base )
 		return;
 	
-	gpio_pin_config_t led_config = { (gpio_pin_direction_t)direction, value };
+	gpio_pin_config_t led_config = { (gpio_pin_direction_t)direction, _value };
 	
 	gpio_n		= pins[ _pn ].base;
 	gpio_pin	= pins[ _pn ].pin;
 	
 	GPIO_PinInit( gpio_n, gpio_pin, &led_config );
+	value( (bool)_value );
 }
 
 DigitalInOut::~DigitalInOut(){}

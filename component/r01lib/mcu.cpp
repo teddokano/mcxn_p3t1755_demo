@@ -32,9 +32,13 @@ void init_mcu( void )
 	CLOCK_SetClkDiv(kCLOCK_DivI3c1FClk, 6U);
 	CLOCK_AttachClk(kPLL0_to_I3C1FCLK);
 
-	/* Attach peripheral clock */
+	/* I2C */
 	CLOCK_SetClkDiv(kCLOCK_DivFlexcom2Clk, 1u);
 	CLOCK_AttachClk(kFRO12M_to_FLEXCOMM2);
+
+	/* SPI */
+	CLOCK_SetClkDiv(kCLOCK_DivFlexcom1Clk, 1u);
+	CLOCK_AttachClk(kFRO12M_to_FLEXCOMM1);
 
 	SYSCON->CLOCK_CTRL |= SYSCON_CLOCK_CTRL_FRO1MHZ_ENA_MASK;	//	UTICK
 
@@ -53,13 +57,25 @@ void init_mcu( void )
 #endif
 
 #else
+	
+	
+	
+	
+	
+	
+#if 1
+	
 	/* Attach clock to I3C 24MHZ */
 	CLOCK_SetClockDiv( kCLOCK_DivI3C0_FCLK, 2U );
 	CLOCK_AttachClk( kFRO_HF_DIV_to_I3C0FCLK );
 
-	/* Attach peripheral clock */
+	/* I2C */
 	CLOCK_SetClockDiv(kCLOCK_DivLPI2C0, 1u);
 	CLOCK_AttachClk(kFRO12M_to_LPI2C0);
+
+	/* SPI */
+	CLOCK_SetClockDiv(kCLOCK_DivLPSPI1, 1u);
+	CLOCK_AttachClk(kFRO12M_to_LPSPI1);
 
 	CLOCK_EnableClock( kCLOCK_GateGPIO0 );
 	CLOCK_EnableClock( kCLOCK_GateGPIO1 );
@@ -71,6 +87,14 @@ void init_mcu( void )
 	BOARD_InitPins();
 	BOARD_InitBootClocks();
 	BOARD_InitDebugConsole();
+	
+#endif // 0
+	
+	
+	
+	
+	
+	
 #endif
 
 	UTICK_Init( UTICK0 );

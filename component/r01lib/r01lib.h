@@ -14,6 +14,7 @@ extern "C" {
 
 #include	"i3c.h"
 #include	"i2c.h"
+#include	"spi.h"
 #include	"io.h"
 #include	"Ticker.h"
 #include	"InterruptIn.h"
